@@ -51,6 +51,7 @@ while not loaded do
 end
 
 
+--[[
 local l
 l = hookmetamethod(game, "__index", newcclosure(function(Self, Index)
     if tostring(Self) == "Neck" and Self.Parent and tostring(Self.Parent) == "Head" and Index == "Enabled" then
@@ -58,6 +59,7 @@ l = hookmetamethod(game, "__index", newcclosure(function(Self, Index)
     end
     return l(Self, Index)
 end))
+]]
 
 local Settings = {
     ["Combat"] = {
