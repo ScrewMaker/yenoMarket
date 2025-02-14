@@ -1,15 +1,16 @@
-local getupval = debug.getupvalue or getupvalue
-local getupvals = debug.getupvalues or getupvalues
-local getreg = debug.getregistry or getregistry
-local setupval = debug.setupvalue or setupvalue
-local getlocalval = debug.getlocal or getlocal
-local getlocalvals = debug.getlocals or getlocals
-local setlocalval = debug.setlocal or setlocal
+local getupval = debug and debug.getupvalue or getupvalue
+local getupvals = debug and debug.getupvalues or getupvalues
+local getreg = debug and debug.getregistry or getregistry
+local setupval = debug and debug.setupvalue or setupvalue
+local getlocalval = debug and debug.getlocal or getlocal
+local getlocalvals = debug and debug.getlocals or getlocals
+local setlocalval = debug and debug.setlocal or setlocal
 local getmetat = getrawmetatable
 local setreadonly1 = make_writeable or setreadonly
-local copy = setclipboard or clipboard.set or copystring
-local Workspace = cloneref(game:GetService("Workspace"))
-local RunService = cloneref(game:GetService("RunService"))
+local copy = setclipboard or clipboard and clipboard.set or copystring
+
+local Workspace = cloneref and cloneref(game:GetService("Workspace")) or game:GetService("Workspace")
+local RunService = cloneref and cloneref(game:GetService("RunService")) or game:GetService("RunService")
 local Camera = Workspace.CurrentCamera
 
 local fov_circle_outer = Drawing.new("Circle")
