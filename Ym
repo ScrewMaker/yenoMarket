@@ -37,12 +37,36 @@ snap_line_inner.Color = Color3.fromRGB(255, 255, 255)
 snap_line_inner.Thickness = 1
 
 local Classes = getrenv()._G.classes
+local EntityClient = Classes and Classes.EntityClient
+
+if not EntityClient then
+    warn("EntityClient is nil! Trying to find it in `shared` or other places...")
+    for i, v in pairs(shared) do
+        print("shared key:", i, "value:", v)
+    end
+    for i, v in pairs(getrenv()) do
+        print("getrenv key:", i, "value:", v)
+    end
+end
+
 local EntityMap, loaded = {}, false
 
 task.spawn(function()
-    while task.wait() do 
-        loaded = true
-        EntityMap = table.clone(Classes.EntityClient.EntityMap)
+    while task.wait() do
+        if EntityClient and EntityClient.EntityMap then
+            loaded = true
+            EntityMap = table.clone(EntityClient.EntityMap)
+        else
+            warn("EntityClient or EntityMap is still nil... Retrying...")
+        end
+    end
+end)
+
+while not loaded do
+    task.wait()
+end
+
+print("EntityMap Loaded Successfully:", EntityMap)p = table.clone(Classes.EntityClient.EntityMap)
     end
 end)
 
